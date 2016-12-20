@@ -1,0 +1,16 @@
+{
+  "name": "nohttps.org",
+  "version": "0.0.0",
+  "private": true,
+  "hexo": {
+    "version": "3.2.2"
+  },
+  "dependencies": {
+    "hexo": "^3.2.0",
+    "hexo-deployer-rsync": "^0.1.2",
+    "hexo-generator-index": "^0.2.0",
+    "hexo-renderer-jade": "^0.3.0",
+    "hexo-renderer-marked": "^0.2.10",
+    "hexo-server": "^0.2.0"
+  }
+}

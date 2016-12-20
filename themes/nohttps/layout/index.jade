@@ -1,0 +1,124 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Not Only HTTPS
+    style.
+      body {
+        font-family: 'Georgia', 'Source Han Sans CN', 'Xin Gothic', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      }
+      h1, h2 {
+        font-weight: 500;
+      }
+      .container {
+        margin-bottom: 180px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      @media (min-width: 768px) {
+        .container {
+          width: 750px;
+        }
+      }
+      @media (min-width: 992px) {
+        .container {
+          width: 970px;
+        }
+      }
+      .hide {
+        display: none;
+      }
+      .language {
+        clear: both;
+      }
+      .languages {
+        float: right;
+        display: inline;
+      }
+      .languages li {
+        display: inline-block;
+        margin: 5px;
+      }
+  body
+    .container
+      .languages
+        ul
+          li: a(href='#', data-language='zh-cn') 简体中文
+          li: a(href='#', data-language='en') English
+          
+      h1 Not Only HTTPS
+      
+      .language.zh-cn.hide
+        :markdown
+          SSL 同时保证了数据不被窃听和不被篡改，但也导致了通过 HTTPS 的请求无法被网络中的代理节点缓存 —— 缓存和代理本来是 HTTP 中协议中很重要的部分，但如果使用 HTTPS ，中间节点连 HTTP 头都读不到。
+
+          对于包含用户数据的请求用 HTTPS 是没有问题的；但其实更多的请求是图片、样式表和脚本，这些请求 **只需要防篡改，而不需要防窃听**，因此完全没有必要使用 SSL 。
+
+          我觉得更好的方式是通过 HTTPS 发送主页面，主页面中包含了所有引用的资源的校验和，然后被引用的资源以 HTTP 传输，可以被网络中的代理节点缓存（例如运营商可以在小区的出口路由处部署一个带缓存功能的代理，可节省很多骨干网的带宽），然后浏览器收到资源后检查校验和，确保资源没有被篡改。
+
+          ```html
+          <script src='scripts.js' sha256-checksum='e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'></script>
+          <img src='logo.png' sha256-checksum='cd372fb85148700fa88095e3492d3f9f5beb43e555e5ff26d95f5a6adc36f8e6' />
+          ```
+
+          其实这就像很多 Linux 发行版的仓库一样，包本身有单独的 GPG 签名来防篡改，因此文件本身可以通过 HTTP 传输，也可以被代理和缓存。但是现在有一些源都支持 HTTPS 了，感觉很是浪费资源呀，也增加了用户可以感受到的延迟。
+
+          当然，我也很清楚现在 HTTPS 的大势所趋很大原因是因为运营商不按照规则去做缓存，但我觉得全站 HTTPS 是一种我们不希望看到的、不得已的做法，因此在此讨论一种更理想的可能性。
+          
+          ## FAQ
+      
+      .language.en
+        :markdown
+          SSL ensures both that data is not tapped and not tampered with, but SSL also make the request cannot cache by proxy nodes in the network. Caching and proxies are very important parts of the HTTP protocol, but if you use HTTPS, the proxy nodes cannot read HTTP headers even.
+          
+          Use HTTPS for requests that contain user privacy is fine, but more requests are pictures, style sheets and scripts. **These requests only require tamper-proofing, and do not require tapped-proofing**, so there is no need to use SSL.
+          
+          I think the better way is send the main page through HTTPS, the main page contains all the checksum of the referenced resources, and then the referenced resources will transport without HTTPS. So they can be cached by proxy nodes in the network (for example ISP will deploy some proxy node provide caching for every numbers of users, will save a lot of core network bandwidth). Then the browser will check the checksum after the resources received to ensure that resources have not been modified.
+          
+          ```html
+          <script src='scripts.js' sha256-checksum='e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'></script>
+          <img src='logo.png' sha256-checksum='cd372fb85148700fa88095e3492d3f9f5beb43e555e5ff26d95f5a6adc36f8e6' />
+          ```
+          
+          It is very similar to a lot of Linux distribution's packages repository, the package itself has a separate GPG signature to prevent modify, so the file package file can be transmitted over HTTP, can also be proxy and cache. But now there are some of mirrors support HTTPS, it is a waste of resources to die, but also increase the user can feel the delay.
+          
+          In fact, this is like a lot of Linux distribution of the warehouse, the package itself has a separate GPG signature to tampering, so the file itself can be transmitted over HTTP, can also be proxy and cache. But now there are a number of sources support HTTPS, the feeling is a waste of resources, and also increase the latency that user can feeled.
+
+          Of course, I know the most part of reason is ISP does not follow the rules to caching the resources, but I think use HTTPS in anywhere is not what we want to be, so I built this site to find a better solution.
+      
+      :markdown
+        ## Who signed the manifesto
+        
+        - [jysperm](https://github.com/jysperm)
+        
+        The source code was available on [GitHub](https://github.com/jysperm/nohttps.org), you can make a pull request to sign this manifesto.
+
+    script.
+      function display(language) {
+        document.querySelectorAll('.language').forEach( text => {
+          text.classList.add('hide');
+        });
+        document.querySelector(`.language.${language}`).classList.remove('hide');
+      }
+      
+      document.querySelectorAll('.languages a').forEach( link => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          display(link.dataset.language);
+        });
+      });
+      
+      if (navigator.languages.includes('zh')) {
+        display('zh-cn');
+      }
+      
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-49193300-6', 'auto');
+      ga('send', 'pageview');
