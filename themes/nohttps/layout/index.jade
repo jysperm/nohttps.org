@@ -86,11 +86,15 @@ html
           
           CDN 的部署需要网站提供方的参与，而且未必能够覆盖到所有用户，而中间节点的缓存对网站提供方和用户都是完全透明的，不需要额外的配置。
           
+          > 你们的诉求是什么？
+          
+          希望大家认识到没有必要在全部资源上都使用 HTTPS，更进一步则希望推动 Subresource Integrity 的支持，并让浏览器取消对 HTTP 的限制。
+          
           ## 签名
       
       .language.en
         :markdown
-          SSL ensures both that data is not tapped and not tampered with, but SSL also make the request cannot cache by proxy nodes in the network. Caching and proxies are very important parts of the HTTP protocol, but if you use HTTPS, the proxy nodes cannot read HTTP headers even.
+          SSL ensures both that data is not tapped and not tampered with, but SSL also make the request cannot be cached by proxy nodes in the network. Caching and proxies are very important parts of the HTTP protocol, but if you use HTTPS, the proxy nodes cannot read HTTP headers even.
           
           Use HTTPS for requests that contain user privacy is fine, but more requests are pictures, style sheets and scripts. **These requests only require tamper-proofing, and do not require tapped-proofing**, so there is no need to use SSL.
           
@@ -101,10 +105,8 @@ html
           <img src='logo.png' integrity='sha256-T8k6fjtH5CEuk451ZcVrh/6mlRRo9Zsf0ZzEwdg0PyI=' />
           ```
           
-          It is very similar to a lot of Linux distribution's packages repository, the package itself has a separate GPG signature to prevent modify, so the file package file can be transmitted over HTTP, can also be proxy and cache. But now there are some of mirrors support HTTPS, it is a waste of resources to die, but also increase the user can feel the delay.
+          It is very similar to a lot of Linux distribution's packages repository, the package itself has a separate GPG signature to prevent modify, so the package file can be transmitted over HTTP, can also be proxy and cache. But now there are some of mirrors support HTTPS, it is a waste of resources, and also increase the latency that user can feeled.
           
-          In fact, this is like a lot of Linux distribution of the warehouse, the package itself has a separate GPG signature to tampering, so the file itself can be transmitted over HTTP, can also be proxy and cache. But now there are a number of sources support HTTPS, the feeling is a waste of resources, and also increase the latency that user can feeled.
-
           Of course, I know the most part of reason is ISP does not follow the rules to caching the resources, but I think use HTTPS in anywhere is not what we want to be, so I built this site to find a better solution.
       
           ## Who signed the manifesto
