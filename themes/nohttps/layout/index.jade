@@ -5,6 +5,7 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Not Only HTTPS
     style.
+      /* TODO: :lang(zh) etc. */
       body {
         font-family: 'Georgia', 'Source Han Sans CN', 'Xin Gothic', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
       }
@@ -51,7 +52,7 @@ html
           
       h1 Not Only HTTPS
       
-      .language.zh-cn.hide
+      .language.zh-cn.hide(lang='zh-Hans-CN')
         :markdown
           SSL 同时确保了数据不被窃听和不被篡改，但也导致了通过 HTTPS 的请求无法被网络中的代理节点缓存 —— 缓存和代理本来是 HTTP 中协议中很重要的部分，但如果使用 HTTPS ，中间节点连 HTTP 头都读不到。
 
@@ -92,7 +93,7 @@ html
           
           ## 签名
       
-      .language.en
+      .language.en(lang='en')
         :markdown
           SSL ensures the integrity and privacy of data transmissions. By stopping others from looking at your resources, SSL also stops the request from being cached by proxy nodes in the network. Caching and proxies are very important parts of the HTTP protocol, but proxy nodes cannot even read HTTP headers if you use HTTPS.
           
@@ -122,7 +123,7 @@ html
           
           > Why are you so concerned with resources wasted by HTTPS?
           
-          Despite a continuous increase in computing power, we are now hitting physical limits on network latency, which can be greatly reduced by serving resources from nearby caching nodes.
+          HTTPS's problem lies not in using some ever-increasing computing power, but in physical limits on network latency. This can be greatly reduced by serving resources from nearby caching nodes.
           
           > Why don't we just ask the sitemaster to deploy HTTPS-capable CDNs?
           
