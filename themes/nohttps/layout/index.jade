@@ -94,10 +94,10 @@ html
       
       .language.en
         :markdown
-          SSL ensures both that data is not tapped and not tampered with, but SSL also stops the request from being cached by proxy nodes in the network. Caching and proxies are very important parts of the HTTP protocol, but proxy nodes cannot even read HTTP headers if you use HTTPS.
+          SSL ensures the integrity and privacy of data transmissions. By stopping others from looking at your resources, SSL also stops the request from being cached by proxy nodes in the network. Caching and proxies are very important parts of the HTTP protocol, but proxy nodes cannot even read HTTP headers if you use HTTPS.
           
           //- more -> most?
-          It's fine to use HTTPS for requests that contain private info. However, most everyday requests are actually pictures, stylesheets and scripts. **These requests only require tamper-proofing**, and there is no need to use SSL's eavesdropping protection.
+          It's fine to use HTTPS for requests that contain private info. However, a bigger part of everyday requests are actually pictures, stylesheets and scripts. **These requests only require tamper-proofing**, and there is no need to use SSL's eavesdropping protection.
           
           We believe that a better way to serve web pages is sending the main page through HTTPS, while securing the integrity of all referenced resources by including their checksums. These resources can then be served without encryption, enabling proxy nodes to cache them. (For example, an ISP can save a lot of core network bandwidth by deploying proxy nodes to provide caching for every user.) Then the browser will check the checksum after the resources received to ensure that resources have not been modified. Sounds cool? This is what the [Subresource Integrity](https://www.w3.org/TR/SRI/) proposal is mostly about.
           
