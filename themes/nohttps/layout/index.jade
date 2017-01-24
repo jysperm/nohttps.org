@@ -54,14 +54,14 @@ html
       
       .language.zh-cn.hide(lang='zh-Hans-CN')
         :markdown
-          SSL 同时确保了数据不被窃听和不被篡改，但也导致了通过 HTTPS 的请求无法被网络中的代理节点缓存 —— 缓存和代理本来是 HTTP 中协议中很重要的部分，但如果使用 HTTPS ，中间节点连 HTTP 头都读不到。
+          SSL 同时确保了数据不被窃听和不被篡改，但也导致了通过 HTTPS 的请求无法被网络中的代理节点缓存 —— 缓存和代理本来是 HTTP 协议中很重要的部分，但如果使用 HTTPS ，中间节点连 HTTP 头都读不到。
 
-          对于包含用户数据的请求用 HTTPS 是没有问题的；但其实更多的请求是图片、样式表和脚本，这些请求 **只需要防篡改，而不需要防窃听**，因此完全没有必要使用 SSL 。
+          对于包含用户数据的请求用 HTTPS 当然没有问题；但其实更多的请求是无关用户数据的图片、样式表和脚本，这些请求 **只需要防篡改，而不需要防窃听**，因此完全没有必要使用 SSL 。
 
           我觉得更好的方式是通过 HTTPS 发送主页面，主页面中包含了所有引用的资源的校验和，然后被引用的资源以 HTTP 传输，可以被网络中的代理节点缓存（例如运营商可以在小区的出口路由处部署一个带缓存功能的代理，可节省很多骨干网的带宽），然后浏览器收到资源后检查校验和，确保资源没有被篡改。事实上 W3C 已经有一份类似的 [提案](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) 了。
 
           ```html
-          <script src='scripts.js' integrity='sha256-Q1WkaxnTSNwvV8BG+O9j1FOOu5NgAPPJ7pVKJ0YN2GU=' />
+          <script src='scripts.js' integrity='sha256-Q1WkaxnTSNwvV8BG+O9j1FOOu5NgAPPJ7pVKJ0YN2GU='></script>
           <img src='logo.png' integrity='sha256-T8k6fjtH5CEuk451ZcVrh/6mlRRo9Zsf0ZzEwdg0PyI=' />
           ```
 
@@ -102,7 +102,7 @@ html
           We believe that a better way to serve web pages is sending the main page through HTTPS, while securing the integrity of all referenced resources by including their checksums. These resources can then be served without encryption, enabling proxy nodes to cache them. (For example, an ISP can save a lot of core network bandwidth by deploying proxy nodes to provide caching for every user.) Then the browser will check the checksum after the resources received to ensure that resources have not been modified. Sounds cool? This is what the [Subresource Integrity](https://www.w3.org/TR/SRI/) proposal is mostly about.
           
           ```html
-          <script src='scripts.js' integrity='sha256-Q1WkaxnTSNwvV8BG+O9j1FOOu5NgAPPJ7pVKJ0YN2GU=' />
+          <script src='scripts.js' integrity='sha256-Q1WkaxnTSNwvV8BG+O9j1FOOu5NgAPPJ7pVKJ0YN2GU='></script>
           <img src='logo.png' integrity='sha256-T8k6fjtH5CEuk451ZcVrh/6mlRRo9Zsf0ZzEwdg0PyI=' />
           ```
           
